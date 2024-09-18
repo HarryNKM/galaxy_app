@@ -65,8 +65,36 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
+                        child:  ListTile(
+                          leading: const Icon(
+                            Icons.sunny,
+                            color: Colors.white,
+                          ),
+                          title: const Text(
+                            "Theme Mode",
+                            style: TextStyle(color: Colors.white, fontSize: 18),
+                          ),
+                          trailing: Switch(value: true, onChanged: (value) {
+
+                          },)
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.all(12),
+                        width: MediaQuery.sizeOf(context).width,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.4),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 0.8,
+                          ),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         child: const ListTile(
-                          leading: Icon(Icons.settings_sharp,color: Colors.white,),
+                          leading: Icon(
+                            Icons.settings_sharp,
+                            color: Colors.white,
+                          ),
                           title: Text(
                             "Settings",
                             style: TextStyle(color: Colors.white, fontSize: 20),
@@ -79,7 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Container(
                         margin: const EdgeInsets.all(12),
-
                         width: MediaQuery.sizeOf(context).width,
                         decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.4),
@@ -89,13 +116,19 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child: const ListTile(
-                          leading: Icon(Icons.favorite,color: Colors.white,),
-                          title: Text(
+                        child: ListTile(
+                          onTap: () {
+                            Navigator.pushNamed(context, 'save');
+                          },
+                          leading: const Icon(
+                            Icons.favorite,
+                            color: Colors.white,
+                          ),
+                          title: const Text(
                             "Saved",
                             style: TextStyle(color: Colors.white, fontSize: 20),
                           ),
-                          trailing: Icon(
+                          trailing: const Icon(
                             Icons.arrow_forward_ios_rounded,
                             color: Colors.white,
                           ),
@@ -103,7 +136,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Container(
                         margin: const EdgeInsets.all(12),
-
                         width: MediaQuery.sizeOf(context).width,
                         decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.4),
@@ -114,7 +146,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const ListTile(
-                          leading: Icon(Icons.help,color: Colors.white,),
+                          leading: Icon(
+                            Icons.help,
+                            color: Colors.white,
+                          ),
                           title: Text(
                             "Help",
                             style: TextStyle(color: Colors.white, fontSize: 20),
@@ -127,7 +162,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Container(
                         margin: const EdgeInsets.all(12),
-
                         width: MediaQuery.sizeOf(context).width,
                         decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.4),
@@ -138,7 +172,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const ListTile(
-                          leading: Icon(Icons.policy,color: Colors.white,),
+                          leading: Icon(
+                            Icons.policy,
+                            color: Colors.white,
+                          ),
                           title: Text(
                             "Privacy",
                             style: TextStyle(color: Colors.white, fontSize: 20),
@@ -149,10 +186,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      Spacer(),
+                      const Spacer(),
                       Container(
                         margin: const EdgeInsets.all(12),
-
                         width: MediaQuery.sizeOf(context).width,
                         decoration: BoxDecoration(
                           color: Colors.grey.withOpacity(0.4),
@@ -163,7 +199,10 @@ class _HomeScreenState extends State<HomeScreen> {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const ListTile(
-                          leading: Icon(Icons.logout,color: Colors.red,),
+                          leading: Icon(
+                            Icons.logout,
+                            color: Colors.red,
+                          ),
                           title: Text(
                             "Log Out",
                             style: TextStyle(color: Colors.red, fontSize: 20),
@@ -207,43 +246,45 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: ListView.builder(
                           itemCount: providerW!.galaxyList.length,
                           itemBuilder: (context, index) {
-                            return Container(
-                              margin: const EdgeInsets.all(12),
-                              height: 100,
-                              width: MediaQuery.sizeOf(context).width,
-                              decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(0.4),
-                                border: Border.all(
-                                  color: Colors.white,
-                                  width: 0.8,
+                            return InkWell(
+                              onTap: () {
+                                Navigator.pushNamed(context, 'detail',
+                                    arguments: providerW!.galaxyList[index]);
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.all(12),
+                                height: 100,
+                                width: MediaQuery.sizeOf(context).width,
+                                decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.4),
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 0.8,
+                                  ),
+                                  borderRadius: BorderRadius.circular(8),
                                 ),
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Image.network(
-                                      "${providerW!.galaxyList[index].image}"),
-                                  Text(
-                                    "${providerW!.galaxyList[index].name}",
-                                    style: const TextStyle(
-                                        color: Colors.white, fontSize: 20),
-                                  ),
-                                  const SizedBox(
-                                    width: 60,
-                                  ),
-                                  IconButton(
-                                      onPressed: () {
-                                        Navigator.pushNamed(context, 'detail',
-                                            arguments:
-                                                providerW!.galaxyList[index]);
-                                      },
-                                      icon: const Icon(
-                                        Icons.arrow_forward_ios,
-                                        color: Colors.white,
-                                      ))
-                                ],
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Image.network(
+                                        "${providerW!.galaxyList[index].image}"),
+                                    Text(
+                                      "${providerW!.galaxyList[index].name}",
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 20),
+                                    ),
+                                    const SizedBox(
+                                      width: 60,
+                                    ),
+                                    IconButton(
+                                        onPressed: () {},
+                                        icon: const Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.white,
+                                        ))
+                                  ],
+                                ),
                               ),
                             );
                           },
