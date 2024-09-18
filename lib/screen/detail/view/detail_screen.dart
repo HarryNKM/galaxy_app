@@ -47,9 +47,17 @@ class _DetailScreenState extends State<DetailScreen> {
                         const Spacer(),
                         Text(
                           "${model.name}",
-                          style: const TextStyle(color: Colors.white, fontSize: 25),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 25),
                         ),
-                        const Spacer()
+                        Spacer(),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.favorite_border,
+                            color: Colors.white,
+                          ),
+                        )
                       ],
                     ),
                     const Divider(),
@@ -66,9 +74,8 @@ class _DetailScreenState extends State<DetailScreen> {
                           children: [
                             Container(
                               decoration: BoxDecoration(
-                                color: Colors.grey.withOpacity(0.5),
-                                borderRadius: BorderRadius.circular(10)
-                              ),
+                                  color: Colors.grey.withOpacity(0.5),
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Text(
                                 " Name : ${model.name} ",
                                 style: const TextStyle(
@@ -81,12 +88,11 @@ class _DetailScreenState extends State<DetailScreen> {
                             Container(
                               decoration: BoxDecoration(
                                   color: Colors.grey.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Text(
                                 " Position : ${model.position} ",
-                                style:
-                                    const TextStyle(color: Colors.white, fontSize: 25),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 25),
                               ),
                             ),
                             const SizedBox(
@@ -95,12 +101,11 @@ class _DetailScreenState extends State<DetailScreen> {
                             Container(
                               decoration: BoxDecoration(
                                   color: Colors.grey.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Text(
                                 " Distance : ${model.distance} ",
-                                style:
-                                    const TextStyle(color: Colors.white, fontSize: 25),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 25),
                               ),
                             ),
                             const SizedBox(
@@ -109,12 +114,11 @@ class _DetailScreenState extends State<DetailScreen> {
                             Container(
                               decoration: BoxDecoration(
                                   color: Colors.grey.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Text(
                                 " Velocity : ${model.velocity} ",
-                                style:
-                                    const TextStyle(color: Colors.white, fontSize: 25),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 25),
                               ),
                             ),
                             const SizedBox(
@@ -123,12 +127,11 @@ class _DetailScreenState extends State<DetailScreen> {
                             Container(
                               decoration: BoxDecoration(
                                   color: Colors.grey.withOpacity(0.5),
-                                  borderRadius: BorderRadius.circular(10)
-                              ),
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Text(
                                 " ${model.description} ",
-                                style:
-                                    const TextStyle(color: Colors.white, fontSize: 20),
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 20),
                               ),
                             )
                           ],
