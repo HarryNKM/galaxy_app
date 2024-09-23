@@ -1,6 +1,7 @@
 import 'package:delightful_toast/delight_toast.dart';
 import 'package:delightful_toast/toast/components/toast_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:galaxy_planets/main.dart';
 import 'package:galaxy_planets/screen/home/provider/home_provider.dart';
 import 'package:provider/provider.dart';
@@ -72,63 +73,69 @@ class _SaveScreenState extends State<SaveScreen> {
                   ),
                 ),
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: providerW!.bookmarkName.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: const EdgeInsets.all(12),
-                        height: 100,
-                        width: MediaQuery.sizeOf(context).width,
-                        decoration: BoxDecoration(
-                          color: Colors.grey.withOpacity(0.4),
-                          border: Border.all(
-                            color: Colors.white,
-                            width: 0.8,
+                  child: Animate(
+                    effects: const [
+                      FadeEffect(duration: Duration(seconds: 1)),
+                      FlipEffect(duration: Duration(seconds: 1))
+                    ],
+                    child: ListView.builder(
+                      itemCount: providerW!.bookmarkName.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          margin: const EdgeInsets.all(12),
+                          height: 100,
+                          width: MediaQuery.sizeOf(context).width,
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.4),
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 0.8,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
                           ),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Image.network("${providerW!.bookmark[index]}"),
-                            Text(
-                              "${providerW!.bookmarkName[index]}",
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 20),
-                            ),
-                            const SizedBox(
-                              width: 60,
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                providerR!.deleteBookmark(index);
-                                DelightToastBar(
-                                  autoDismiss: true,
-                                  snackbarDuration: Duration(seconds: 2),
-                                  builder: (context) => const ToastCard(
-                                    leading: Icon(
-                                      Icons.done_all,
-                                      size: 28,
-                                    ),
-                                    title: Text(
-                                      "Planet Deleted",
-                                      style: TextStyle(
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 14,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Image.network("${providerW!.bookmark[index]}"),
+                              Text(
+                                "${providerW!.bookmarkName[index]}",
+                                style: const TextStyle(
+                                    color: Colors.white, fontSize: 20),
+                              ),
+                              const SizedBox(
+                                width: 60,
+                              ),
+                              IconButton(
+                                onPressed: () {
+                                  providerR!.deleteBookmark(index);
+                                  DelightToastBar(
+                                    autoDismiss: true,
+                                    snackbarDuration: Duration(seconds: 2),
+                                    builder: (context) => const ToastCard(
+                                      leading: Icon(
+                                        Icons.done_all,
+                                        size: 28,
+                                      ),
+                                      title: Text(
+                                        "Planet Deleted",
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 14,
+                                        ),
                                       ),
                                     ),
-                                  ),
-                                ).show(context);
-                              },
-                              icon: const Icon(
-                                Icons.delete,
-                                color: Colors.red,
-                              ),
-                            )
-                          ],
-                        ),
-                      );
-                    },
+                                  ).show(context);
+                                },
+                                icon: const Icon(
+                                  Icons.delete,
+                                  color: Colors.red,
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
                 )
               ],

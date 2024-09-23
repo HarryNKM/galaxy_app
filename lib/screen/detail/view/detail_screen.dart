@@ -213,4 +213,10 @@ class _DetailScreenState extends State<DetailScreen> with TickerProviderStateMix
       ),
     );
   }
+
+  @override
+  void dispose() {
+    animationController!.dispose();
+    super.dispose();
+  }
 }

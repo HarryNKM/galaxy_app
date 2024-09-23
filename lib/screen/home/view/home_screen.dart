@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:galaxy_planets/screen/home/provider/home_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -281,51 +282,57 @@ class _HomeScreenState extends State<HomeScreen> {
                         height: 20,
                       ),
                       Expanded(
-                        child: ListView.builder(
-                          itemCount: providerW!.galaxyList.length,
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.pushNamed(context, 'detail',
-                                    arguments: index);
-                              },
-                              child: Container(
-                                margin: const EdgeInsets.all(12),
-                                height: 100,
-                                width: MediaQuery.sizeOf(context).width,
-                                decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.4),
-                                  border: Border.all(
-                                    color: Colors.white,
-                                    width: 0.8,
+                        child: Animate(
+                          effects: [
+                            FadeEffect(duration: Duration(seconds: 3)),
+
+                          ],
+                          child: ListView.builder(
+                            itemCount: providerW!.galaxyList.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.pushNamed(context, 'detail',
+                                      arguments: index);
+                                },
+                                child: Container(
+                                  margin: const EdgeInsets.all(12),
+                                  height: 100,
+                                  width: MediaQuery.sizeOf(context).width,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey.withOpacity(0.4),
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 0.8,
+                                    ),
+                                    borderRadius: BorderRadius.circular(8),
                                   ),
-                                  borderRadius: BorderRadius.circular(8),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Image.network(
+                                          "${providerW!.galaxyList[index].image}"),
+                                      Text(
+                                        "${providerW!.galaxyList[index].name}",
+                                        style: const TextStyle(
+                                            color: Colors.white, fontSize: 20),
+                                      ),
+                                      const SizedBox(
+                                        width: 60,
+                                      ),
+                                      IconButton(
+                                          onPressed: () {},
+                                          icon: const Icon(
+                                            Icons.arrow_forward_ios,
+                                            color: Colors.white,
+                                          ))
+                                    ],
+                                  ),
                                 ),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Image.network(
-                                        "${providerW!.galaxyList[index].image}"),
-                                    Text(
-                                      "${providerW!.galaxyList[index].name}",
-                                      style: const TextStyle(
-                                          color: Colors.white, fontSize: 20),
-                                    ),
-                                    const SizedBox(
-                                      width: 60,
-                                    ),
-                                    IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Colors.white,
-                                        ))
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                              );
+                            },
+                          ),
                         ),
                       )
                     ],
