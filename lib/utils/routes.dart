@@ -5,7 +5,8 @@ import 'package:galaxy_planets/screen/save/view/save_screen.dart';
 import 'package:galaxy_planets/screen/splash/splash_screen.dart';
 
 Map<String,WidgetBuilder> app_routes={
-  '/':(context)=>const HomeScreen(),
+  '/':(context)=>const SplashScreen(),
+  'home':(context)=>const HomeScreen(),
   'detail':(context)=>DetailScreen(),
   'save':(context)=>SaveScreen(),
 };
