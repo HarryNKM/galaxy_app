@@ -4,6 +4,8 @@ import 'package:flutter/widgets.dart';
 import 'package:galaxy_planets/screen/home/provider/home_provider.dart';
 import 'package:provider/provider.dart';
 
+import '../../../utils/shared_pref.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -21,6 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   HomeProvider? providerR;
   HomeProvider? providerW;
+  var scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,18 +31,26 @@ class _HomeScreenState extends State<HomeScreen> {
     providerW = context.watch<HomeProvider>();
     return SafeArea(
       child: Scaffold(
+          key: scaffoldKey,
           drawer: Drawer(
             child: Stack(
               children: [
                 SingleChildScrollView(
                   child: Column(
                     children: [
-                      Image.network(
-                        "https://c4.wallpaperflare.com/wallpaper/284/26/428/portrait-display-vertical-artwork-digital-art-space-hd-wallpaper-preview.jpg",
-                        fit: BoxFit.cover,
-                        height: MediaQuery.sizeOf(context).height,
-                        width: MediaQuery.sizeOf(context).width,
-                      ),
+                      providerW!.isTheme == false
+                          ? Image.network(
+                              "https://c4.wallpaperflare.com/wallpaper/284/26/428/portrait-display-vertical-artwork-digital-art-space-hd-wallpaper-preview.jpg",
+                              fit: BoxFit.cover,
+                              height: MediaQuery.sizeOf(context).height,
+                              width: MediaQuery.sizeOf(context).width,
+                            )
+                          : Image.network(
+                              "https://www.shutterstock.com/image-photo/vertical-sky-blue-orange-light-600nw-1936290373.jpg",
+                              fit: BoxFit.cover,
+                              height: MediaQuery.sizeOf(context).height,
+                              width: MediaQuery.sizeOf(context).width,
+                            )
                     ],
                   ),
                 ),
@@ -65,19 +76,24 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           borderRadius: BorderRadius.circular(8),
                         ),
-                        child:  ListTile(
-                          leading: const Icon(
-                            Icons.sunny,
-                            color: Colors.white,
-                          ),
-                          title: const Text(
-                            "Theme Mode",
-                            style: TextStyle(color: Colors.white, fontSize: 18),
-                          ),
-                          trailing: Switch(value: true, onChanged: (value) {
-
-                          },)
-                        ),
+                        child: ListTile(
+                            leading: const Icon(
+                              Icons.sunny,
+                              color: Colors.white,
+                            ),
+                            title: const Text(
+                              "Light Theme",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
+                            ),
+                            trailing: Switch(
+                              value: providerW!.isTheme,
+                              onChanged: (value) {
+                                SharedHelper helper = SharedHelper();
+                                helper.setTheme(value);
+                                providerR!.changeTheme();
+                              },
+                            )),
                       ),
                       Container(
                         margin: const EdgeInsets.all(12),
@@ -224,20 +240,42 @@ class _HomeScreenState extends State<HomeScreen> {
             width: MediaQuery.sizeOf(context).width,
             child: Stack(
               children: [
-                Image.network(
-                  "https://wallpaperaccess.com/full/5581727.jpg",
-                  fit: BoxFit.cover,
-                  height: MediaQuery.sizeOf(context).height,
-                  width: MediaQuery.sizeOf(context).width,
-                ),
+                providerW!.isTheme == false
+                    ? Image.network(
+                        "https://c4.wallpaperflare.com/wallpaper/284/26/428/portrait-display-vertical-artwork-digital-art-space-hd-wallpaper-preview.jpg",
+                        fit: BoxFit.cover,
+                        height: MediaQuery.sizeOf(context).height,
+                        width: MediaQuery.sizeOf(context).width,
+                      )
+                    : Image.network(
+                        "https://www.shutterstock.com/image-photo/vertical-sky-blue-orange-light-600nw-1936290373.jpg",
+                        fit: BoxFit.cover,
+                        height: MediaQuery.sizeOf(context).height,
+                        width: MediaQuery.sizeOf(context).width,
+                      ),
                 Container(
                   alignment: Alignment.topCenter,
-                  padding: const EdgeInsets.all(12),
+                  padding:  const EdgeInsets.all(12),
                   child: Column(
+
                     children: [
-                      const Text(
-                        "Planets",
-                        style: TextStyle(fontSize: 25, color: Colors.white),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                scaffoldKey.currentState!.openDrawer();
+                              },
+                              icon: const Icon(
+                                Icons.menu,
+                                color: Colors.white,
+                              )),
+                          const Text(
+                            "Planets",
+                            style: TextStyle(fontSize: 25, color: Colors.white),
+                          ),
+                          const Icon(Icons.share,color: Colors.white,)
+                        ],
                       ),
                       const SizedBox(
                         height: 20,
@@ -249,7 +287,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             return InkWell(
                               onTap: () {
                                 Navigator.pushNamed(context, 'detail',
-                                    arguments: providerW!.galaxyList[index]);
+                                    arguments: index);
                               },
                               child: Container(
                                 margin: const EdgeInsets.all(12),
